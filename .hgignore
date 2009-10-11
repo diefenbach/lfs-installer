@@ -9,4 +9,3 @@ syntax: glob
 *downloads
 *.installed.cfg
 *.egg-info/
-lfs
