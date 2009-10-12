@@ -1,12 +1,12 @@
 syntax: glob
+lfs.db
+.installed.cfg
 *.pyc
 *.pyo
 *.DS_Store 
-*parts
-*eggs
-*develop-eggs
-*bin
-*downloads
-*.installed.cfg
+*develop-eggs/
 *.egg-info/
-lfs
+*eggs/
+*parts/
+*bin/
+*downloads/
