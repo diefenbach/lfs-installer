@@ -87,6 +87,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     "django.contrib.flatpages",
+    "django.contrib.redirects",
     "django.contrib.sitemaps",
     "lfstheme",
     "pagination",
@@ -157,6 +158,11 @@ EMAIL_HOST_PASSWORD = ""
 PAYPAL_RECEIVER_EMAIL = "info@yourbusiness.com"
 PAYPAL_IDENTITY_TOKEN = "set_this_to_your_paypal_pdt_identity_token"
 LFS_PAYPAL_REDIRECT = True
+
+REVIEWS_SHOW_PREVIEW = False
+REVIEWS_IS_NAME_REQUIRED = False
+REVIEWS_IS_EMAIL_REQUIRED = False
+REVIEWS_IS_MODERATED = False
 
 try:
     from local_settings import *
