@@ -12,8 +12,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'      # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'lfs.db'      # Or path to database file if using sqlite3.
+DATABASE_ENGINE = ''      # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = ''      # Or path to database file if using sqlite3.
 DATABASE_USER = ''         # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -87,15 +87,17 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     "django.contrib.flatpages",
-    "django.contrib.redirects",
+    "django.contrib.redirects",    
     "django.contrib.sitemaps",
     "lfstheme",
     "pagination",
     'reviews',
     "tagging",
     "portlets",
+    "portlets.example",
     "lfs",
     "lfs.tests",
+    'lfs.contact_form',
     'lfs.core',
     'lfs.caching',
     'lfs.cart',
@@ -103,10 +105,12 @@ INSTALLED_APPS = (
     'lfs.checkout',
     "lfs.criteria",
     "lfs.customer",
+    "lfs.discounts",
     "lfs.export",
     'lfs.mail',
     'lfs.manage',
     'lfs.marketing',
+    'lfs.manufacturer',
     'lfs.order',
     'lfs.page',
     'lfs.payment',
@@ -118,7 +122,8 @@ INSTALLED_APPS = (
     'lfs.utils',
     'lfs.voucher',
     'paypal.standard.ipn',
-    'paypal.standard.pdt',    
+    'paypal.standard.pdt',
+    'gunicorn',
 )
 
 FORCE_SCRIPT_NAME=""
@@ -148,16 +153,17 @@ INTERNAL_IPS = (
 # CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
 CACHE_BACKEND = 'dummy:///'
 
-CATEGORY_PREFIX = "kategorie-"
-LFS_RECENT_PRODUCTS_LIMIT = 5
-
 EMAIL_HOST = ""
 EMAIL_HOST_USER = ""
 EMAIL_HOST_PASSWORD = ""
 
 PAYPAL_RECEIVER_EMAIL = "info@yourbusiness.com"
 PAYPAL_IDENTITY_TOKEN = "set_this_to_your_paypal_pdt_identity_token"
+
+# TODO: Put this into the Shop model
 LFS_PAYPAL_REDIRECT = True
+LFS_AFTER_ADD_TO_CART = "lfs_added_to_cart"
+LFS_RECENT_PRODUCTS_LIMIT = 5
 
 REVIEWS_SHOW_PREVIEW = False
 REVIEWS_IS_NAME_REQUIRED = False
