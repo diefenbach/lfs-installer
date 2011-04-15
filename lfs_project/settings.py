@@ -6,6 +6,8 @@ DIRNAME = os.path.dirname(__file__)
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+DEFAULT_FROM_EMAIL = 'your_email@domain.com'
+
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
