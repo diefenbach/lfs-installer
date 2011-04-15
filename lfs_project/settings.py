@@ -77,6 +77,7 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    "lfstheme",
     "django.contrib.admin",
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -85,7 +86,6 @@ INSTALLED_APPS = (
     "django.contrib.flatpages",
     "django.contrib.redirects",
     "django.contrib.sitemaps",
-    "lfstheme",
     "pagination",
     'reviews',
     "tagging",
