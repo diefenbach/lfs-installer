@@ -6,6 +6,8 @@ DIRNAME = os.path.dirname(__file__)
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+DEFAULT_FROM_EMAIL = 'your_email@domain.com'
+
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
@@ -77,6 +79,7 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    "lfstheme",
     "django.contrib.admin",
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -85,7 +88,6 @@ INSTALLED_APPS = (
     "django.contrib.flatpages",
     "django.contrib.redirects",
     "django.contrib.sitemaps",
-    "lfstheme",
     "pagination",
     'reviews',
     "tagging",
