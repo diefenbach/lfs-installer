@@ -3,7 +3,7 @@
 import os
 DIRNAME = os.path.dirname(__file__)
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 DEFAULT_FROM_EMAIL = 'your_email@domain.com'
@@ -14,12 +14,16 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = ''      # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = ''      # Or path to database file if using sqlite3.
-DATABASE_USER = ''         # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'lfs.db',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -42,6 +46,10 @@ USE_I18N = True
 # Example: "/home/media/media.lawrence.com/"
 MEDIA_ROOT = DIRNAME + "/media"
 
+# static files settings
+STATIC_URL = '/static/'
+STATIC_ROOT = DIRNAME + "/sitestatic"
+
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
@@ -63,6 +71,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -84,18 +93,19 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.staticfiles',
     'django.contrib.sites',
     "django.contrib.flatpages",
     "django.contrib.redirects",
     "django.contrib.sitemaps",
+    'djangorestframework',
+    'django_countries',
     "pagination",
     'reviews',
     "tagging",
     "portlets",
-    "portlets.example",
     "lfs",
     "lfs.tests",
-    'lfs.contact_form',
     'lfs.core',
     'lfs.caching',
     'lfs.cart',
@@ -105,20 +115,26 @@ INSTALLED_APPS = (
     "lfs.customer",
     "lfs.discounts",
     "lfs.export",
+    'lfs.gross_price',
+    'lfs.integrationtests',
     'lfs.mail',
     'lfs.manage',
     'lfs.marketing',
     'lfs.manufacturer',
+    'lfs.net_price',
     'lfs.order',
     'lfs.page',
     'lfs.payment',
     'lfs.portlet',
     'lfs.search',
     'lfs.shipping',
+    'lfs.supplier',
     'lfs.tagging',
     'lfs.tax',
     'lfs.utils',
     'lfs.voucher',
+    'lfs_contact',
+    'postal',
     'paypal.standard.ipn',
     'paypal.standard.pdt',
     'gunicorn',
@@ -133,6 +149,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.auth',
     'django.core.context_processors.request',
     'django.core.context_processors.media',
+    'django.core.context_processors.static',
     'lfs.core.context_processors.main',
 )
 
