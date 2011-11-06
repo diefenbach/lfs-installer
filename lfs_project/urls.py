@@ -23,6 +23,7 @@ urlpatterns += patterns("",
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(DIRNAME, "media"), 'show_indexes': True }),
 )
 
-if hasattr(settings, 'TESTING'):
-    if settings.TESTING:
+if getattr(settings, 'TESTING'):
+    urlpatterns += patterns("",
         (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(DIRNAME, "sitestatic"), 'show_indexes': True }),
+    )

@@ -5,6 +5,7 @@ DIRNAME = os.path.dirname(__file__)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+TESTING = False
 
 DEFAULT_FROM_EMAIL = 'your_email@domain.com'
 
