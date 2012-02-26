@@ -1,6 +1,9 @@
-# Django settings for lfs development buildout.
-
+# python imports
 import os
+
+# django imports
+from django.utils.translation import gettext_lazy as _
+
 DIRNAME = os.path.dirname(__file__)
 
 DEBUG = True
@@ -64,6 +67,12 @@ ADMIN_MEDIA_PREFIX = '/media/admin/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '+0zsw5n@v7*rhl6r6ufqhoc6jlqq0f-u8c+gh(hjb+_jmg@rh6'
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
@@ -90,6 +99,7 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     "lfstheme",
+    "compressor",
     "django.contrib.admin",
     'django.contrib.auth',
     'django.contrib.contenttypes',
