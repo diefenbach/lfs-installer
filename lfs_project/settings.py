@@ -132,9 +132,11 @@ INSTALLED_APPS = (
     'lfs.supplier',
     'lfs.tagging',
     'lfs.tax',
+    "lfs.customer_tax",
     'lfs.utils',
     'lfs.voucher',
     'lfs_contact',
+    "lfs_order_numbers",
     'postal',
     'paypal.standard.ipn',
     'paypal.standard.pdt',
@@ -164,6 +166,7 @@ INTERNAL_IPS = (
     "127.0.0.1",
 )
 
+CACHE_MIDDLEWARE_KEY_PREFIX = "lfs"
 # CACHE_BACKEND = 'file:///'
 # CACHE_BACKEND = 'locmem:///'
 # CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
@@ -180,6 +183,68 @@ PAYPAL_IDENTITY_TOKEN = "set_this_to_your_paypal_pdt_identity_token"
 LFS_PAYPAL_REDIRECT = True
 LFS_AFTER_ADD_TO_CART = "lfs_added_to_cart"
 LFS_RECENT_PRODUCTS_LIMIT = 5
+
+LFS_ORDER_NUMBER_GENERATOR = "lfs_order_numbers.models.OrderNumberGenerator"
+LFS_DOCS = "http://docs.getlfs.com/docs/lightning-fast-shop/en/latest/"
+
+LFS_INVOICE_EMAIL_REQUIRED = False
+LFS_INVOICE_PHONE_REQUIRED = False
+LFS_INVOICE_COMPANY_NAME_REQUIRED = False
+LFS_SHIPPING_PHONE_REQUIRED = False
+
+LFS_PRICE_CALCULATORS = [
+    ['lfs.gross_price.GrossPriceCalculator', _(u'Price includes tax')],
+    ['lfs.net_price.NetPriceCalculator', _(u'Price excludes tax')],
+]
+
+LFS_SHIPPING_METHOD_PRICE_CALCULATORS = [
+    ["lfs.shipping.GrossShippingMethodPriceCalculator", _(u'Price includes tax')],
+    ["lfs.shipping.NetShippingMethodPriceCalculator", _(u'Price excludes tax')],
+]
+
+LFS_UNITS = [
+    u"l",
+    u"m",
+    u"qm",
+    u"cm",
+    u"lfm",
+    u"Package",
+    u"Piece",
+]
+
+LFS_PRICE_UNITS = LFS_BASE_PRICE_UNITS = LFS_PACKING_UNITS = LFS_UNITS
+
+LFS_LOG_FILE = DIRNAME + "/../lfs.log"
+LOGGING = {
+    "version": 1,
+    "formatters": {
+        "verbose": {
+            "format": "%(asctime)s %(levelname)s %(message)s",
+            "datefmt": "%a, %d %b %Y %H:%M:%S",
+        },
+    },
+    "handlers": {
+         "console":{
+            "level":"DEBUG",
+            "class":"logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        'logfile': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': LFS_LOG_FILE,
+            'mode': 'a',
+        },
+    },
+    "loggers": {
+        "default": {
+            "handlers": ["logfile", "console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+    }
+}
 
 REVIEWS_SHOW_PREVIEW = False
 REVIEWS_IS_NAME_REQUIRED = False
