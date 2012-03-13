@@ -7,6 +7,8 @@ admin.autodiscover()
 import os
 DIRNAME = os.path.dirname(__file__)
 
+handler500 = 'lfs.core.views.server_error'
+
 urlpatterns = patterns("",
     (r'', include('lfs.core.urls')),
     (r'^manage/', include('lfs.manage.urls')),
