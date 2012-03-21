@@ -194,7 +194,7 @@ LFS_AFTER_ADD_TO_CART = "lfs_added_to_cart"
 LFS_RECENT_PRODUCTS_LIMIT = 5
 
 LFS_ORDER_NUMBER_GENERATOR = "lfs_order_numbers.models.OrderNumberGenerator"
-LFS_DOCS = "http://docs.getlfs.com/en/0.7.0b2/"
+LFS_DOCS = "http://docs.getlfs.com/en/latest/"
 
 LFS_INVOICE_COMPANY_NAME_REQUIRED = False
 LFS_INVOICE_EMAIL_REQUIRED = True
