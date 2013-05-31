@@ -10,7 +10,7 @@ How to use it?
 
 Please see 
 
-http://packages.python.org/django-lfs/introduction/installation.html
+https://lightning-fast-shop.readthedocs.org/en/latest/introduction/installation.html
 
 for more information.
 
