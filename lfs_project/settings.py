@@ -1,14 +1,12 @@
-# python imports
 import os
-
-# django imports
 from django.utils.translation import gettext_lazy as _
 
 DIRNAME = os.path.dirname(__file__)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-TESTING = False
+
+
 
 DEFAULT_FROM_EMAIL = 'your_email@domain.com'
 
@@ -20,12 +18,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'lfs.db',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'lfs.db',                       # Or path to database file if using sqlite3.
+        'USER': '',                       # Not used with sqlite3.
+        'PASSWORD': '',                   # Not used with sqlite3.
+        'HOST': '',                       # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                       # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -34,11 +32,11 @@ DATABASES = {
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'UTC'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 
@@ -46,36 +44,20 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = True
 
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
+# media files settings
+MEDIA_URL = '/media/'
 MEDIA_ROOT = DIRNAME + "/media"
 
 # static files settings
 STATIC_URL = '/static/'
 STATIC_ROOT = DIRNAME + "/sitestatic"
 
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash if there is a path component (optional in other cases).
-# Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/media/'
-
-# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-# trailing slash.
-# Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/static/admin/'
-
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '+0zsw5n@v7*rhl6r6ufqhoc6jlqq0f-u8c+gh(hjb+_jmg@rh6'
 
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
-)
-
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -85,6 +67,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
     "pagination.middleware.PaginationMiddleware",
+
+
+
+
 )
 
 ROOT_URLCONF = 'urls'
@@ -155,6 +141,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'lfs.core.context_processors.main',
+
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -162,11 +149,12 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-CACHE_MIDDLEWARE_KEY_PREFIX = "lfs"
-# CACHE_BACKEND = 'file:///'
-# CACHE_BACKEND = 'locmem:///'
-# CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
-CACHE_BACKEND = 'dummy:///'
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        'KEY_PREFIX': 'lfs'
+    }
+}
 
 EMAIL_HOST = ""
 EMAIL_HOST_USER = ""
@@ -175,10 +163,11 @@ EMAIL_HOST_PASSWORD = ""
 PAYPAL_RECEIVER_EMAIL = "info@yourbusiness.com"
 PAYPAL_IDENTITY_TOKEN = "set_this_to_your_paypal_pdt_identity_token"
 
-# TODO: Put this into the Shop model
 LFS_PAYPAL_REDIRECT = True
 LFS_AFTER_ADD_TO_CART = "lfs_added_to_cart"
 LFS_RECENT_PRODUCTS_LIMIT = 5
+
+LFS_LOCALE = "en_US.UTF-8"
 
 LFS_ORDER_NUMBER_GENERATOR = "lfs_order_numbers.models.OrderNumberGenerator"
 LFS_DOCS = "http://docs.getlfs.com/en/latest/"
@@ -190,6 +179,10 @@ LFS_INVOICE_PHONE_REQUIRED = True
 LFS_SHIPPING_COMPANY_NAME_REQUIRED = False
 LFS_SHIPPING_EMAIL_REQUIRED = False
 LFS_SHIPPING_PHONE_REQUIRED = False
+
+LFS_PAYMENT_METHOD_PROCESSORS = [
+    ["lfs_paypal.PayPalProcessor", _(u"PayPal")],
+]
 
 LFS_PRICE_CALCULATORS = [
     ['lfs.gross_price.GrossPriceCalculator', _(u'Price includes tax')],
@@ -223,9 +216,14 @@ LFS_CRITERIA = [
     ["lfs.criteria.models.WeightCriterion", _(u"Weight")],
     ["lfs.criteria.models.ShippingMethodCriterion", _(u"Shipping Method")],
     ["lfs.criteria.models.PaymentMethodCriterion", _(u"Payment Method")],
+
 ]
 
-LFS_LOG_FILE = DIRNAME + "/../lfs.log"
+REVIEWS_SHOW_PREVIEW = False
+REVIEWS_IS_NAME_REQUIRED = False
+REVIEWS_IS_EMAIL_REQUIRED = False
+REVIEWS_IS_MODERATED = False
+
 LOGGING = {
     "version": 1,
     "formatters": {
@@ -244,7 +242,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'verbose',
-            'filename': LFS_LOG_FILE,
+            'filename': os.path.join(DIRNAME, "..", "lfs.log"),
             'mode': 'a',
         },
     },
@@ -256,11 +254,6 @@ LOGGING = {
         },
     }
 }
-
-REVIEWS_SHOW_PREVIEW = False
-REVIEWS_IS_NAME_REQUIRED = False
-REVIEWS_IS_EMAIL_REQUIRED = False
-REVIEWS_IS_MODERATED = False
 
 try:
     from local_settings import *
