@@ -142,6 +142,7 @@ INSTALLED_APPS = (
     'postal',
     'paypal.standard.ipn',
     'paypal.standard.pdt',
+    'south',
 )
 
 FORCE_SCRIPT_NAME = ""
