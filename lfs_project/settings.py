@@ -20,8 +20,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'lfs.db',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -73,11 +73,9 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-# List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -85,48 +83,43 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'lfs.utils.middleware.RedirectFallbackMiddleware',
+    "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
     "pagination.middleware.PaginationMiddleware",
 )
 
 ROOT_URLCONF = 'urls'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+SESSION_SERIALIZER = "django.contrib.sessions.serializers.PickleSerializer"
 
 INSTALLED_APPS = (
-    "lfstheme",
-    "compressor",
+    'lfs_theme',
+    'compressor',
     "django.contrib.admin",
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    "django.contrib.flatpages",
-    "django.contrib.redirects",
-    "django.contrib.sitemaps",
+    'django.contrib.flatpages',
+    'django.contrib.redirects',
+    'django.contrib.sitemaps',
     'django_countries',
-    "pagination",
+    'pagination',
     'reviews',
-    "tagging",
-    "portlets",
-    "lfs",
-    "lfs.tests",
-    'lfs.core',
+    'portlets',
+    'lfs',
+    'lfs.addresses',
     'lfs.caching',
     'lfs.cart',
     'lfs.catalog',
     'lfs.checkout',
-    "lfs.criteria",
-    "lfs.customer",
-    "lfs.discounts",
-    "lfs.export",
+    'lfs.core',
+    'lfs.criteria',
+    'lfs.customer',
+    'lfs.customer_tax',
+    'lfs.discounts',
+    'lfs.export',
     'lfs.gross_price',
-    'lfs.integrationtests',
     'lfs.mail',
     'lfs.manage',
     'lfs.marketing',
@@ -139,26 +132,24 @@ INSTALLED_APPS = (
     'lfs.search',
     'lfs.shipping',
     'lfs.supplier',
-    'lfs.tagging',
     'lfs.tax',
-    "lfs.customer_tax",
+    'lfs.tests',
     'lfs.utils',
     'lfs.voucher',
     'lfs_contact',
-    "lfs_order_numbers",
+    'lfs_order_numbers',
+    'localflavor',
     'postal',
     'paypal.standard.ipn',
     'paypal.standard.pdt',
-    'gunicorn',
 )
 
-FORCE_SCRIPT_NAME=""
+FORCE_SCRIPT_NAME = ""
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/manage/"
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.debug',
-    'django.core.context_processors.auth',
+    'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
@@ -168,11 +159,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 AUTHENTICATION_BACKENDS = (
     'lfs.customer.auth.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
-)
-
-# For sql_queries
-INTERNAL_IPS = (
-    "127.0.0.1",
 )
 
 CACHE_MIDDLEWARE_KEY_PREFIX = "lfs"
@@ -236,9 +222,9 @@ LOGGING = {
         },
     },
     "handlers": {
-         "console":{
-            "level":"DEBUG",
-            "class":"logging.StreamHandler",
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
         'logfile': {
