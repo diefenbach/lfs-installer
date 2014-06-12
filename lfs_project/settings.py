@@ -129,9 +129,15 @@ INSTALLED_APPS = (
     'paypal.standard.ipn',
     'paypal.standard.pdt',
     'south',
+
+
+
+
+
 )
 
 FORCE_SCRIPT_NAME = ""
+
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/manage/"
 
