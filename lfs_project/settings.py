@@ -93,7 +93,6 @@ INSTALLED_APPS = (
     'pagination',
     'reviews',
     'portlets',
-    'lfs',
     'lfs.addresses',
     'lfs.caching',
     'lfs.cart',
@@ -128,12 +127,6 @@ INSTALLED_APPS = (
     'postal',
     'paypal.standard.ipn',
     'paypal.standard.pdt',
-    'south',
-
-
-
-
-
 )
 
 FORCE_SCRIPT_NAME = ""
